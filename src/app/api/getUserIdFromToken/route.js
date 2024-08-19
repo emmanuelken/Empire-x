@@ -2,6 +2,9 @@ import { connectToDatabase } from '@/utils/dbConnect';
 import User from '@/models/user';
 import jwt from 'jsonwebtoken';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export async function GET(request) {
   try {
     // Extract token from Authorization header
@@ -13,7 +16,7 @@ export async function GET(request) {
     const token = authHeader.replace('Bearer ', '');
     
     // Verify and decode the token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); // Replace with your JWT secret
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     if (!decoded || !decoded.userId) {
       return new Response(JSON.stringify({ message: 'Invalid token' }), { status: 401 });
     }
