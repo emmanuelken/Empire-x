@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+  }
+  
+  .title {
+    margin-bottom: 16px;
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(255, 196, 4);
+  }
+  
+  .message {
+    font-size: 16px;
+    color: #0070f3;
+  }
+  

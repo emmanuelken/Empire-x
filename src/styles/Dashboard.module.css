@@ -1,0 +1,86 @@
+/* src/styles/Dashboard.module.css */
+.dashboard {
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .dashboard h1 {
+    font-size: 2rem;
+    color:rgb(255, 196, 4);
+    margin-bottom: 20px;
+  }
+
+  .dashboard p {
+    font-size: 2rem;
+    color:rgb(255, 196, 4);
+    margin-bottom: 20px;
+  }
+  
+  .rates {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .rates p {
+    font-size: 25px;
+    color: #028518;
+  }
+  
+  .rates button {
+    background-color: #0070f3;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-right: 10px;
+  }
+  
+  .rates button:hover {
+    background-color: #005bb5;
+  }
+  
+  .nav {
+    margin-top: 20px;
+  }
+  
+  .nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .nav ul li {
+    display: inline;
+    margin-right: 15px;
+  }
+  
+  .nav ul li a {
+    text-decoration: none;
+    color: rgb(255, 196, 4);
+    font-size: 1rem;
+  }
+  
+  .nav ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  .btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color:rgb(255, 196, 4);
+    color: #0f0101;
+    border: none;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: rgb(6, 153, 6);
+  }

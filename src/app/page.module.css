@@ -1,0 +1,63 @@
+/* src/styles/Home.module.css */
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.home h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: rgb(255, 196, 4);
+}
+
+.home button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(255, 196, 4);
+  color: rgb(12, 1, 1);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.home button:hover {
+  background-color: rgb(13, 139, 13);
+}
+
+.home form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home form input {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.home form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(255, 196, 4);
+  color: rgb(10, 0, 0);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.home form button:hover {
+  background-color: rgb(13, 139, 13);
+}
+

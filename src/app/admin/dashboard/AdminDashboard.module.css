@@ -1,0 +1,124 @@
+/* src/app/admin/dashboard/AdminDashboard.module.css */
+.header {
+    color: rgb(255, 196, 4);
+    margin: 4px;
+  }
+
+  .toggleButtons {
+    margin-bottom: 20px;
+  }
+  
+  .toggleButtons button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(255, 196, 4);
+    color: rgb(14, 1, 1);
+    transition: background-color 0.3s ease;
+  }
+
+  .toggleButtons button:hover {
+    background-color: rgb(13, 139, 13);
+  }
+
+  /* Style for the update rates section */
+.updateRatesSection {
+    margin-top: 20px;
+  }
+  
+  .updateRatesSection form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .updateRatesSection label {
+    margin-bottom: 10px;
+  }
+  
+  .updateRatesSection input {
+    margin-left: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .updateRatesSection button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .updateRatesSection button:hover {
+    background-color: #218838;
+  }
+  
+  /* Style for the transactions section */
+  .transactionsSection {
+    margin-top: 20px;
+  }
+  
+  .transactionsSection ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .transactionsSection li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .transactionsSection button {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(255, 196, 4);
+    color: #0c0000;
+    transition: background-color 0.3s ease;
+  }
+
+  .transactionsSection button:hover {
+    background-color: rgb(13, 139, 13);
+  }
+  
+  /* Style for the user accounts section */
+  .userAccountsSection {
+    margin-top: 20px;
+  }
+  
+  .userAccountsSection ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .userAccountsSection li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .userAccountsSection div {
+    margin-top: 10px;
+  }
+  
+  .userAccountsSection p {
+    margin: 5px 0;
+  }
+  
+  .userAccountsSection h3 {
+    margin-top: 10px;
+    font-size: 18px;
+    color: rgb(255, 196, 4);
+  }

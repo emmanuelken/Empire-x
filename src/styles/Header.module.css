@@ -1,0 +1,22 @@
+.header {
+    color: white;
+    padding: 1rem;
+  }
+  
+  .navList {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+  }
+  
+  .navList a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .navList a:hover {
+    text-decoration: underline;
+  }
+
+  

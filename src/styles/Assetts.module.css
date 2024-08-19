@@ -1,0 +1,96 @@
+.container {
+    padding: 20px;
+  }
+  
+  .headingPrimary {
+    color: rgb(255, 196, 4);
+  }
+  
+  .headingSecondary {
+    color: rgb(128, 248, 128);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .assetList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .assetItem {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .assetItem:hover {
+    background-color:rgb(2, 48, 6);
+  }
+  
+  .assetImage {
+    margin-right: 10px;
+  }
+  
+  .button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: rgb(255, 196, 4);
+    color: #130101;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: rgb(6, 153, 6);
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .message {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #e0ffe0;
+    border: 1px solid #00b300;
+    border-radius: 5px;
+    color: #006600;
+  }
+  
+ 
+.networkItem {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.networkItem:hover {
+  background-color:  rgb(94, 73, 4); /* Hover color */
+}
+
+.networkItem.selected {
+  background-color: rgb(2, 48, 6); /* Selected color */
+  font-weight: bold;
+}
+
+.wad {
+  color: black;
+  background-color: white;
+}
+
+.proof {
+  color: rgb(128, 248, 128);
+  margin-top: 10px;
+}

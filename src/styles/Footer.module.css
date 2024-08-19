@@ -1,0 +1,21 @@
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+  }
+  
+  .navList {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .navList a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .navList a:hover {
+    text-decoration: underline;
+  }
+  
