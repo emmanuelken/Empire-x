@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import styles from '@/styles/Assetts.module.css';
 
 const AssetsPage = () => {
@@ -46,7 +47,7 @@ const AssetsPage = () => {
                 { id: 'usdt-net3', name: 'USDT BEP20', address: 'usdt-bep20-address' },
               ];
               break;
-            //Will add More assets and their networks as needed
+            // Will add more assets and their networks as needed
             default:
               networks = [
                 { id: 'null-network', name: 'Network1', address: 'network1-address' },
@@ -211,7 +212,7 @@ const AssetsPage = () => {
                 className={styles.assetItem}
                 style={{ cursor: isRegistered ? 'pointer' : 'not-allowed', opacity: isRegistered ? 1 : 0.5 }}
               >
-                <img
+                <Image
                   src={asset.logo}
                   alt={asset.name}
                   width={30}
@@ -274,20 +275,20 @@ const AssetsPage = () => {
                     <h3 className={styles.proof}>Enter Transaction Proof Here</h3>
                     <input
                       type="text"
-                      placeholder="Enter your Transaction ID"
+                      placeholder="Enter transaction ID"
                       value={transactionId}
                       onChange={(e) => setTransactionId(e.target.value)}
                       className={styles.input}
                     />
                     <input
                       type="text"
-                      placeholder="Enter your Wallet Name"
+                      placeholder="Enter your wallet name"
                       value={walletName}
                       onChange={(e) => setWalletName(e.target.value)}
                       className={styles.input}
                     />
                     <button className={styles.button} onClick={handleSubmit}>
-                      Complete Transaction
+                      Submit Transaction
                     </button>
                   </div>
                   {message && <p className={styles.message}>{message}</p>}

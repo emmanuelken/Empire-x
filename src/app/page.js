@@ -89,7 +89,7 @@ const HomePage = () => {
 
   const handleResendVerification = async () => {
     if (resendAttempts >= 2) {
-      setMessage('You can only resend the verification email twice.');
+      setMessage("You can only resend the verification email twice.");
       return;
     }
 
@@ -103,7 +103,7 @@ const HomePage = () => {
       const result = await response.json();
       if (response.ok) {
         setResendAttempts(prev => prev + 1);
-        setMessage('Verification email resent. Please check your inbox.');
+        setMessage("Verification email resent. Please check your inbox.");
         // Set a timeout to manage resend limit (1 minute)
         const timeout = setTimeout(() => setResendAttempts(0), 60000);
         setResendTimeout(timeout);
@@ -156,7 +156,7 @@ const HomePage = () => {
           </form>
           {registrationStatus === 'pending' && (
             <div>
-              <p>If you didn't receive the email, you can resend it:</p>
+              <p>If you didn&apos;t receive the email, we can resend it:</p>
               <button onClick={handleResendVerification} disabled={resendAttempts >= 2}>
                 {resendAttempts >= 2 ? 'Resend limit reached' : 'Resend Verification Email'}
               </button>

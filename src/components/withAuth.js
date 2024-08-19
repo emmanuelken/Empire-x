@@ -12,7 +12,7 @@ const withAuth = (WrappedComponent, isAdminRoute = false) => {
       const token = localStorage.getItem('token');
 
       if (!token) {
-        router.push('/'); // Redirect to login page if no token is found
+        router.push('/login'); // Redirect to login page if no token is found
         return;
       }
 
@@ -30,25 +30,27 @@ const withAuth = (WrappedComponent, isAdminRoute = false) => {
             const data = await res.json();
 
             if (isAdminRoute && data.role !== 'admin') {
-              router.push('/login'); // Redirect if not an admin
+              router.push('/'); // Redirect to the homepage if not an admin
               return;
             }
 
             setLoading(false); // Set loading to false to render the component
+          } else if (res.status === 401 || res.status === 403) {
+            router.push('/login'); // Redirect to login if unauthorized
           } else {
-            router.push('/login'); // Redirect to login if verification fails
+            router.push('/'); // Redirect to homepage on other errors
           }
         } catch (error) {
           console.error('Failed to verify token:', error);
-          router.push('/'); // Redirect to login on error
+          router.push('/'); // Redirect to homepage on error
         }
       };
 
       verifyToken();
-    }, [router, isAdminRoute]);
+    }, [router]); // Removed `isAdminRoute` from dependencies
 
     if (loading) {
-      return <p>Loading...</p>;
+      return <p>Loading...</p>; // Show loading message until verification is complete
     }
 
     return <WrappedComponent {...props} />;
