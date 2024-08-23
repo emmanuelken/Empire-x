@@ -7,8 +7,8 @@ export default function Footer() {
       <nav>
         <ul className={styles.navList}>
           <li><Link href="/privacy-policy">Privacy Policy</Link></li>
-          <li><Link href="/terms-of-service">Terms of Service</Link></li>
-          <li><Link href="/admin/dashboard">Team</Link></li>
+          <li><Link href="/terms">Terms of Service</Link></li>
+          <li><Link href="/admin/dashboard">Empire</Link></li>
         </ul>
       </nav>
     </footer>

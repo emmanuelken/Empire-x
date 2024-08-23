@@ -1,86 +1,233 @@
-/* src/styles/Dashboard.module.css */
+/* General styles for the dashboard */
 .dashboard {
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 1200px;
-    margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard h1 {
+  font-size: 2.5rem;
+  color: rgb(255, 196, 4);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.dashboard p {
+  font-size: 1.25rem;
+  color: rgb(255, 196, 4);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Rates section styling */
+.rates {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 600px; /* Reduced width */
+}
+
+.rates p {
+  font-size: 1.5rem;
+  color: #028518;
+  margin-bottom: 20px;
+}
+
+
+/* Navigation styles */
+.nav {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.nav ul li {
+  margin: 0 15px;
+}
+
+.nav ul li a {
+  text-decoration: none;
+  color: rgb(255, 196, 4);
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.nav ul li a:hover {
+  color: #028518;
+  text-decoration: underline;
+}
+
+/* Button styles */
+.btn {
+  display: block; /* Center the button */
+  margin: 20px auto 0 auto; /* Center the button with margin adjustments */
+  padding: 12px 24px;
+  background-color: rgb(255, 196, 4);
+  color: #0f0101;
+  border: none;
+  font-size: 1.25rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: rgb(6, 153, 6);
+  color: #fff;
+}
+
+/* Notifications section */
+.notifications {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 600px; /* Reduced width */
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+.notifications h2 {
+  font-size: 1.75rem;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.showNotificationsBtn {
+  background-color: rgb(255, 196, 4);
+  color: rgb(22, 21, 21);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+.showNotificationsBtn:hover {
+  background-color: rgb(6, 153, 6);
+  color: #fff;
+}
+
+.notifications ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.notifications li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.notifications li.read {
+  background-color: #e9e9e9;
+}
+
+.notifications li h4 {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.notifications li button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.notifications li button:hover {
+  background-color: #218838;
+}
+
+.notifications li:last-child {
+  text-align: center;
+  color: #888;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 15px;
   }
-  
+
   .dashboard h1 {
     font-size: 2rem;
-    color:rgb(255, 196, 4);
-    margin-bottom: 20px;
   }
 
   .dashboard p {
-    font-size: 2rem;
-    color:rgb(255, 196, 4);
-    margin-bottom: 20px;
-  }
-  
-  .rates {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-  
-  .rates p {
-    font-size: 25px;
-    color: #028518;
-  }
-  
-  .rates button {
-    background-color: #0070f3;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-right: 10px;
-  }
-  
-  .rates button:hover {
-    background-color: #005bb5;
-  }
-  
-  .nav {
-    margin-top: 20px;
-  }
-  
-  .nav ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .nav ul li {
-    display: inline;
-    margin-right: 15px;
-  }
-  
-  .nav ul li a {
-    text-decoration: none;
-    color: rgb(255, 196, 4);
-    font-size: 1rem;
-  }
-  
-  .nav ul li a:hover {
-    text-decoration: underline;
-  }
-  
-  .btn {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color:rgb(255, 196, 4);
-    color: #0f0101;
-    border: none;
-    font-size: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 1.1rem;
   }
 
-  .btn:hover {
-    background-color: rgb(6, 153, 6);
+  .rates p {
+    font-size: 1.2rem;
   }
+
+  .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+
+  .notifications {
+    padding: 15px;
+  }
+
+  .notifications h2 {
+    font-size: 1.5rem;
+  }
+
+  .notifications li h4 {
+    font-size: 1rem;
+  }
+
+  .notifications li button {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav ul li {
+    margin: 10px 0;
+  }
+
+  .nav ul li a {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .rates,
+  .notifications {
+    max-width: 100%; /* Ensure full width on smaller screens */
+    padding: 15px;
+  }
+
+  .btn {
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+}

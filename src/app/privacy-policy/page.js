@@ -1,10 +1,9 @@
 import Link from 'next/link';
 
-export default function Contact() {
+export default function Privacy() {
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Have a Question?</h1>
-      <p>Contact Us</p>
+      <h1>Read Our Policies Here</h1>
       <Link href="/dashboard">
         <span style={{ color: 'orange', textDecoration: 'underline' }}>
           BACK TO DASHBOARD
@@ -13,5 +12,3 @@ export default function Contact() {
     </div>
   );
 }
-
-  

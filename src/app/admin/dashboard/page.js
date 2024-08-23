@@ -46,21 +46,32 @@ function AdminDashboard() {
   const handleApprove = async (transactionId) => {
     try {
       // Optimistically update UI
-      setTransactions(transactions.filter((txn) => txn._id !== transactionId));
-
+      const updatedTransactions = transactions.filter((txn) => txn.id !== transactionId);
+      setTransactions(updatedTransactions);
+  
       // Send approval request to server
-      await fetch(`/api/admin/transactions/${transactionId}/approve`, {
+      const response = await fetch(`/api/admin/transactions/${transactionId}/approve`, {
         method: 'POST',
       });
-
-      // Optional: Re-fetch transactions to ensure data consistency
+  
+      if (!response.ok) {
+        throw new Error('Failed to approve transaction');
+      }
+  
+      // Optionally re-fetch transactions to ensure data consistency
       // const transactionsRes = await fetch('/api/admin/transactions');
       // const transactionsData = await transactionsRes.json();
       // setTransactions(transactionsData.transactions || []);
     } catch (error) {
       console.error('Error approving transaction:', error);
+  
+      // Revert the optimistic update in case of error
+      const transactionsRes = await fetch('/api/admin/transactions');
+      const transactionsData = await transactionsRes.json();
+      setTransactions(transactionsData.transactions || []);
     }
   };
+  
 
   // Handle rate update
   const handleRateUpdate = async (event) => {
@@ -70,18 +81,25 @@ function AdminDashboard() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          bitcoinRate: parseFloat(bitcoinRate),
-          tetherRate: parseFloat(tetherRate),
+          rates: {
+            bitcoin: parseFloat(bitcoinRate),
+            tether: parseFloat(tetherRate),
+          }
         }),
       });
-
+  
       const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.message || 'Failed to update rates');
+      }
+      
       setMessage(result.message);
     } catch (error) {
       console.error('Error updating rates:', error);
       setMessage('Failed to update rates');
     }
   };
+  
 
   return (
     <div>

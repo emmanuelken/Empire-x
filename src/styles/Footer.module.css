@@ -1,21 +1,27 @@
+/* Base Styles */
 .footer {
-    background-color: #333;
-    color: white;
-    padding: 1rem;
-  }
-  
-  .navList {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .navList a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .navList a:hover {
-    text-decoration: underline;
-  }
-  
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.navList {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navList li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  transition: color 0.3s ease;
+}
+
+.navList li a:hover {
+  color: #ccc;
+}

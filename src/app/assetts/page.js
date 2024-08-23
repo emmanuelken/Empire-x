@@ -7,16 +7,18 @@ import styles from '@/styles/Assetts.module.css';
 
 const AssetsPage = () => {
   const [assets, setAssets] = useState([]);
+  const [filteredAssets, setFilteredAssets] = useState([]);
   const [selectedAsset, setSelectedAsset] = useState(null);
   const [selectedNetwork, setSelectedNetwork] = useState(null);
   const [walletAddress, setWalletAddress] = useState('');
   const [transactionId, setTransactionId] = useState('');
   const [walletName, setWalletName] = useState('');
   const [message, setMessage] = useState('');
-  const [amount, setAmount] = useState(''); // Amount to be traded
-  const [isAmountConfirmed, setIsAmountConfirmed] = useState(false); // Track amount confirmation
-  const [isRegistered, setIsRegistered] = useState(false); // Track registration status
-  const router = useRouter(); // For redirection
+  const [amount, setAmount] = useState('');
+  const [isAmountConfirmed, setIsAmountConfirmed] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     const fetchAssets = async () => {
@@ -24,7 +26,6 @@ const AssetsPage = () => {
         const response = await fetch('/api/fetchAssets');
         const data = await response.json();
 
-        // Networks for each asset
         const assetsWithNetworks = data.map(asset => {
           let networks = [];
 
@@ -47,7 +48,6 @@ const AssetsPage = () => {
                 { id: 'usdt-net3', name: 'USDT BEP20', address: 'usdt-bep20-address' },
               ];
               break;
-            // Will add more assets and their networks as needed
             default:
               networks = [
                 { id: 'null-network', name: 'Network1', address: 'network1-address' },
@@ -61,6 +61,7 @@ const AssetsPage = () => {
         });
 
         setAssets(assetsWithNetworks);
+        setFilteredAssets(assetsWithNetworks);
       } catch (error) {
         console.error('Failed to fetch assets:', error);
       }
@@ -68,12 +69,19 @@ const AssetsPage = () => {
 
     fetchAssets();
 
-    // Check registration status
     const token = localStorage.getItem('token');
     if (token) {
-      setIsRegistered(true); // User is registered only if token is present
+      setIsRegistered(true);
     }
   }, []);
+
+  useEffect(() => {
+    const filtered = assets.filter(asset =>
+      asset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      asset.symbol.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredAssets(filtered);
+  }, [searchTerm, assets]);
 
   const fetchUserIdFromToken = async () => {
     try {
@@ -105,10 +113,10 @@ const AssetsPage = () => {
     }
 
     setSelectedAsset(asset);
-    setSelectedNetwork(null); // Reset network
-    setWalletAddress(''); // Reset wallet address
-    setAmount(''); // Reset amount
-    setIsAmountConfirmed(false); // Reset amount confirmation
+    setSelectedNetwork(null);
+    setWalletAddress('');
+    setAmount('');
+    setIsAmountConfirmed(false);
   };
 
   const handleConfirmAmount = () => {
@@ -150,7 +158,6 @@ const AssetsPage = () => {
     const userId = await fetchUserIdFromToken();
     if (!userId) return;
 
-    // Validate selectedAsset and selectedNetwork are not null
     if (!selectedAsset || !selectedNetwork) {
       setMessage('Please select both asset and network.');
       return;
@@ -175,9 +182,11 @@ const AssetsPage = () => {
         throw new Error(errorData.message || 'Failed to submit transaction');
       }
 
-      const result = await response.json();
-      setMessage('Transaction Process Completed. You will be credited in less than 5 mins!');
-      console.log(result);
+      setMessage('Transaction Process Completed. You will be credited in less than 5 mins! Check notifications on your dashboard.');
+
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 3000); // 3-second delay
     } catch (error) {
       setMessage(`Failed to submit transaction: ${error.message}`);
     }
@@ -185,41 +194,51 @@ const AssetsPage = () => {
 
   const handleGoBack = () => {
     if (selectedNetwork) {
-      setSelectedNetwork(null); // Go back to the networks list
+      setSelectedNetwork(null);
     } else if (isAmountConfirmed) {
-      setIsAmountConfirmed(false); // Go back to the amount confirmation step
+      setIsAmountConfirmed(false);
     } else if (selectedAsset) {
-      setSelectedAsset(null); // Go back to the assets list
+      setSelectedAsset(null);
     } else {
-      router.push('/dashboard'); // Go back to the dashboard
+      router.push('/dashboard');
     }
+  };
+
+  const handleCopyWalletAddress = () => {
+    navigator.clipboard.writeText(walletAddress).then(() => {
+      setMessage('Wallet address copied to clipboard!');
+    }).catch(err => {
+      setMessage('Failed to copy wallet address.');
+      console.error('Copy failed:', err);
+    });
   };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.headingPrimary}>Select an Asset</h1>
       {!isRegistered && <p className={styles.message}>Please register to proceed with asset transactions.</p>}
+      <input
+        type="text"
+        placeholder="Search assets..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={styles.searchInput}
+      />
       {!selectedAsset ? (
         <div>
           <button className={styles.button} onClick={() => router.push('/dashboard')}>
             Go Back to Dashboard
           </button>
           <ul className={styles.assetList}>
-            {assets.map((asset) => (
+            {filteredAssets.map((asset) => (
               <li
                 key={asset.id}
                 onClick={() => handleAssetClick(asset)}
                 className={styles.assetItem}
                 style={{ cursor: isRegistered ? 'pointer' : 'not-allowed', opacity: isRegistered ? 1 : 0.5 }}
               >
-                <Image
-                  src={asset.logo}
-                  alt={asset.name}
-                  width={30}
-                  height={30}
-                  className={styles.assetImage}
-                />
-                {asset.name} ({asset.symbol})
+                <Image src={asset.image} alt={asset.name} width={30} height={30} />
+                {asset.name}
               </li>
             ))}
           </ul>
@@ -229,71 +248,62 @@ const AssetsPage = () => {
           <button className={styles.button} onClick={handleGoBack}>
             Go Back
           </button>
-          {!isAmountConfirmed ? (
+          <h2 className={styles.headingSecondary}>{selectedAsset.name}</h2>
+          {selectedNetwork ? (
             <div>
-              <h3 className={styles.headingSecondary}>Confirm Trade Amount in $</h3>
-              <input
-                type="number"
-                placeholder="Enter the dollar equivalent of the amount to be traded"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                className={styles.input}
-              />
-              <button className={styles.button} onClick={handleConfirmAmount}>
-                Confirm Amount
-              </button>
-              {message && <p className={styles.message}>{message}</p>}
+              <h4 className={styles.proof}>Send coin via the provided wallet address and enter the proof of transaction below.</h4>
+              <p className={styles.walletAddress}>
+                {walletAddress}
+                <button className={styles.copyButton} onClick={handleCopyWalletAddress}>Copy</button>
+              </p>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Transaction ID from your wallet"
+                  value={transactionId}
+                  onChange={(e) => setTransactionId(e.target.value)}
+                  className={styles.input}
+                />
+                <input
+                  type="text"
+                  placeholder="Name of Wallet Used"
+                  value={walletName}
+                  onChange={(e) => setWalletName(e.target.value)}
+                  className={styles.input}
+                />
+                <button className={styles.button} onClick={handleSubmit}>
+                  Submit Transaction
+                </button>
+              </div>
+              <p className={styles.message}>{message}</p>
             </div>
           ) : (
             <div>
-              <h3 className={styles.headingSecondary}>{selectedAsset.name} Networks</h3>
-              <ul className={styles.assetList}>
+              <h2 className={styles.headingSecondary}>Select a Network</h2>
+              <div>
                 {selectedAsset.networks.map((network) => (
-                  <li
+                  <div
                     key={network.id}
                     onClick={() => handleNetworkClick(network)}
                     className={`${styles.networkItem} ${selectedNetwork?.id === network.id ? styles.selected : ''}`}
                   >
                     {network.name}
-                  </li>
-                ))}
-              </ul>
-
-              {selectedNetwork && walletAddress && ( // Check if selectedNetwork is not null before rendering
-                <div>
-                  <h4 className={styles.headingSecondary}>
-                    Send {selectedAsset.name} via {selectedNetwork.name} Network
-                  </h4>
-                  <p className={styles.wad}>Wallet Address: {walletAddress}</p>
-                  <button
-                    className={styles.button}
-                    onClick={() => navigator.clipboard.writeText(walletAddress)}
-                  >
-                    Copy Wallet Address
-                  </button>
-                  <div>
-                    <h3 className={styles.proof}>Enter Transaction Proof Here</h3>
-                    <input
-                      type="text"
-                      placeholder="Enter transaction ID"
-                      value={transactionId}
-                      onChange={(e) => setTransactionId(e.target.value)}
-                      className={styles.input}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Enter your wallet name"
-                      value={walletName}
-                      onChange={(e) => setWalletName(e.target.value)}
-                      className={styles.input}
-                    />
-                    <button className={styles.button} onClick={handleSubmit}>
-                      Submit Transaction
-                    </button>
                   </div>
-                  {message && <p className={styles.message}>{message}</p>}
+                ))}
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Amount"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    className={styles.input}
+                  />
+                  <button className={styles.button} onClick={handleConfirmAmount}>
+                    Confirm Amount
+                  </button>
                 </div>
-              )}
+                <p className={styles.message}>{message}</p>
+              </div>
             </div>
           )}
         </div>

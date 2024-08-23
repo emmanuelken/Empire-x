@@ -1,17 +1,18 @@
-import fs from 'fs';
-import path from 'path';
+// src/app/api/custom-rates/route.js
+import { connectToDatabase } from '../../../utils/dbConnect';
+import Rate from '../../../models/Rates'; // Assuming you have a Rate model
 
-export async function GET() {
+export async function GET(request) {
+  await connectToDatabase();
+  
   try {
-    const filePath = path.resolve('src/config/rates.json');
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const rates = JSON.parse(fileContent);
-
-    console.log('Fetched Rates:', rates); // Log the fetched rates
-
+    const rates = await Rate.find(); // Fetch rates from database
+    if (!rates) {
+      return new Response(JSON.stringify([]), { status: 200 });
+    }
     return new Response(JSON.stringify(rates), { status: 200 });
   } catch (error) {
-    console.error('Error fetching custom rates:', error);
-    return new Response(JSON.stringify({ message: 'Failed to fetch rates', error: error.message }), { status: 500 });
+    console.error('Error fetching rates:', error);
+    return new Response(JSON.stringify({ error: 'Failed to fetch rates' }), { status: 500 });
   }
 }

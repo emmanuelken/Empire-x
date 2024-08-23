@@ -1,23 +1,20 @@
-import fs from 'fs';
-import path from 'path';
+// src/utils/conversionUtils.js
+import { connectToDatabase } from './dbConnect'; // Update with your database connection utility
+import Rate from '../models/Rates'; // Update with your Rate model
 
-// Define the path to the rates JSON file
-const ratesFilePath = path.resolve(process.cwd(), 'src/config/rates.json');
-
-// Function to get conversion rate from JSON file
 export async function getConversionRate(assetId) {
   try {
-    // Read rates from the JSON file
-    const data = fs.readFileSync(ratesFilePath, 'utf8');
-    const rates = JSON.parse(data);
+    await connectToDatabase();
 
-    // Check if the assetId exists in the rates and return the rate for NGN
-    if (!rates[assetId] || !rates[assetId]['ngn']) {
+    // Fetch the conversion rate from the database
+    const rate = await Rate.findOne({ asset: assetId });
+
+    if (!rate || !rate.rate) {
       throw new Error('Conversion rate not found');
     }
 
-    return rates[assetId]['ngn'];
+    return rate.rate;
   } catch (error) {
-    throw new Error('Failed to read or parse rates file: ' + error.message);
+    throw new Error('Failed to fetch conversion rate: ' + error.message);
   }
 }

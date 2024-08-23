@@ -7,12 +7,14 @@
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .home h1 {
   font-size: 2rem;
   margin-bottom: 20px;
   color: rgb(255, 196, 4);
+  text-align: center;
 }
 
 .home button {
@@ -35,6 +37,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 400px;
 }
 
 .home form input {
@@ -43,7 +47,6 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
-  max-width: 300px;
 }
 
 .home form button {
@@ -55,9 +58,32 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .home form button:hover {
   background-color: rgb(13, 139, 13);
 }
 
+/* Responsive Styles */
+@media (max-width: 600px) {
+  .home h1 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .home form {
+    max-width: 90%;
+  }
+
+  .home button,
+  .home form button {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .home form input {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}

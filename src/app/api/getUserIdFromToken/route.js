@@ -1,3 +1,4 @@
+//src/app/api/getUserIdFromToken/route.js
 import { connectToDatabase } from '@/utils/dbConnect';
 import User from '@/models/user';
 import jwt from 'jsonwebtoken';

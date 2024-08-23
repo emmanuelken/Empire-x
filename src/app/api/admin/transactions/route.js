@@ -1,3 +1,4 @@
+// src/app/api/admin/transactions/route.js
 import { connectToDatabase } from '@/utils/dbConnect';
 import Transaction from '@/models/Transaction';
 
@@ -7,12 +8,12 @@ export async function GET(request) {
 
     // Fetch transactions and populate the user field
     const transactions = await Transaction.find({ status: 'pending' })
-      .populate('user', 'name email') // Populate the user's name and email
-      .sort({ createdAt: -1 }); // Optional: sort by time, most recent first
+      .populate('user', 'name email')
+      .sort({ createdAt: -1 });
 
-    console.log('Fetched Transactions:', transactions); // Log the fetched transactions
+    console.log('Fetched Transactions:', transactions); // Log fetched transactions
 
-    // Format the response to include the necessary fields
+    // Format the response
     const transactionsWithUserDetails = transactions.map(transaction => ({
       id: transaction._id,
       userName: transaction.user ? transaction.user.name : 'Unknown User',
@@ -20,8 +21,10 @@ export async function GET(request) {
       amount: transaction.amount,
       walletName: transaction.walletName,
       status: transaction.status,
-      createdAt: transaction.createdAt.toISOString(), // Format date
+      createdAt: transaction.createdAt.toISOString(),
     }));
+
+    console.log('Formatted Transactions:', transactionsWithUserDetails); // Log formatted transactions
 
     return new Response(JSON.stringify({ transactions: transactionsWithUserDetails }), { status: 200 });
   } catch (error) {

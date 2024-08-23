@@ -16,7 +16,20 @@ export async function GET(request, { params }) {
     });
 
     if (!user) {
-      return new NextResponse(JSON.stringify({ message: 'Login or sign up required' }), { status: 400 });
+      // Check if the user is already verified (in case the token has been cleared)
+      const alreadyVerifiedUser = await User.findOne({ verificationToken: undefined, isVerified: true });
+
+      if (alreadyVerifiedUser) {
+        return new NextResponse(
+          JSON.stringify({ message: 'Email is already verified redirecting to login....' }),
+          { status: 200 }
+        );
+      }
+
+      return new NextResponse(
+        JSON.stringify({ message: 'Invalid or expired verification token.' }),
+        { status: 404 } // 404 Not Found for invalid tokens
+      );
     }
 
     // Mark the user as verified
@@ -38,3 +51,4 @@ export async function GET(request, { params }) {
     );
   }
 }
+

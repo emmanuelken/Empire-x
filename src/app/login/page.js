@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { jwtDecode } from 'jwt-decode';
 import styles from '@/styles/login.module.css';
 
 const LoginPage = () => {
@@ -15,7 +16,7 @@ const LoginPage = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     const { email, password } = formData;
-
+  
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
@@ -24,10 +25,25 @@ const LoginPage = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-
+  
       const result = await response.json();
       if (response.ok) {
-        localStorage.setItem('token', result.token); // Assuming the token is returned in the response
+        localStorage.setItem('token', result.token); // Store the token in localStorage
+  
+        // Decode the token to extract the userId
+        const decodedToken = jwtDecode(result.token);
+        console.log('Decoded Token:', decodedToken); // Log the decoded token
+  
+        const userId = decodedToken.userId;
+  
+        // Check if userId is undefined
+        if (!userId) {
+          console.error('userId is undefined in the decoded token');
+        }
+  
+        // Store the userId in localStorage
+        localStorage.setItem('userId', userId);
+  
         router.push('/dashboard'); // Redirect to the dashboard
       } else {
         setMessage(result.message || 'Login failed');
@@ -36,6 +52,7 @@ const LoginPage = () => {
       setMessage('An error occurred: ' + error.message);
     }
   };
+  
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

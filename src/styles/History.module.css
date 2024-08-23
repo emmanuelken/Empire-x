@@ -1,0 +1,50 @@
+/* src/styles/History.module.css */
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .container h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fcfbfb;
+  }
+  
+  .container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .container td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .container th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .container tr:nth-child(even) {
+    background-color: #0d2744;
+  }
+  
+  .container tr:hover {
+    background-color: #4CAF50;
+  }
+  
+  .container p {
+    color: #fdf9f9;
+    font-size: 1.1rem;
+  }
+  
