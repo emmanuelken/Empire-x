@@ -1,4 +1,7 @@
 'use client';
+
+export const dynamic = 'force-dynamic';
+
 import withAuth from '@/components/withAuth';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -46,11 +49,13 @@ const DashboardPage = () => {
 
     const fetchRates = async () => {
       try {
-        const response = await fetch('/api/custom-rates');
+        const response = await fetch('/api/custom-rates', {
+          cache: 'no-store', // Prevent caching of the response
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch rates');
         }
-
+    
         const data = await response.json();
         const bitcoinRate = data.find(rate => rate.asset === 'bitcoin');
         const tetherRate = data.find(rate => rate.asset === 'tether');
@@ -62,6 +67,7 @@ const DashboardPage = () => {
         setError('Failed to fetch rates');
       }
     };
+    
 
     const fetchNotifications = async () => {
       try {

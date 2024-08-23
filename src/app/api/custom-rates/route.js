@@ -8,11 +8,22 @@ export async function GET(request) {
   try {
     const rates = await Rate.find(); // Fetch rates from database
     if (!rates) {
-      return new Response(JSON.stringify([]), { status: 200 });
+      return new Response(JSON.stringify([]), { status: 200, headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate' } });
     }
-    return new Response(JSON.stringify(rates), { status: 200 });
+    return new Response(JSON.stringify(rates), {
+      status: 200,
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate', // Disable caching
+      },
+    });
   } catch (error) {
     console.error('Error fetching rates:', error);
-    return new Response(JSON.stringify({ error: 'Failed to fetch rates' }), { status: 500 });
+    return new Response(JSON.stringify({ error: 'Failed to fetch rates' }), {
+      status: 500,
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate', // Disable caching for errors as well
+      },
+    });
   }
 }
+
